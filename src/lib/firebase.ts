@@ -4,16 +4,15 @@ import { getAuth } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Firebase configuration using environment variables
 const firebaseConfig = {
-  apiKey: "AIzaSyC6Mcgmmkj8Ey_9BnlE0KnbvmEcxdLFBOY",
-  authDomain: "calendar-5b6b0.firebaseapp.com",
-  projectId: "calendar-5b6b0",
-  storageBucket: "calendar-5b6b0.firebasestorage.app",
-  messagingSenderId: "832021844663",
-  appId: "1:832021844663:web:3e1ba6e2ae402929c1f332",
-  measurementId: "G-2ML51KE6Q0"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
@@ -21,7 +20,7 @@ const app = initializeApp(firebaseConfig);
 
 // Initialize Analytics only on client side
 let analytics = null;
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   try {
     analytics = getAnalytics(app);
   } catch (error) {
@@ -29,7 +28,7 @@ if (typeof window !== 'undefined') {
   }
 }
 
-// Initialize Firestore
+// Initialize Firestore and Auth
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 export default app;
